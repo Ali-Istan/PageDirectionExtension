@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Display Direction Switcher (LTR / RTL)",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "تغییر جهت نمایش صفحه به چپ به راست (یا راست به چپ) با محافظت کامل از بلوک‌های کد md-code-block",
   "permissions": [
     "storage"
