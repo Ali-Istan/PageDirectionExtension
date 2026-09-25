@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تنظیم جهت صفحه</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="header-title-wrap">
+        <div class="app-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+        </div>
+        <div>
+          <h1 class="header-title">تنظیم جهت صفحه</h1>
+          <span class="header-subtitle">Display Direction Switcher</span>
+        </div>
+      </div>
+      <div id="statusBadge" class="status-badge badge-active">فعال</div>
+    </header>
+
+    <!-- Master Switch -->
+    <div class="card toggle-card">
+      <div class="toggle-info">
+        <span class="toggle-title">وضعیت اکستنشن</span>
+        <span class="toggle-desc" id="toggleDescription">تغییر جهت فعال است</span>
+      </div>
+      <label class="switch" for="enabledToggle">
+        <input type="checkbox" id="enabledToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- Direction Selection -->
+    <div class="card direction-card" id="directionCard">
+      <div class="section-title">انتخاب جهت نمایش:</div>
+      <div class="direction-options">
+        <label class="direction-option" id="labelLtr">
+          <input type="radio" name="direction" value="ltr" id="dirLtr" checked>
+          <div class="option-content">
+            <span class="option-icon">⬅️</span>
+            <div class="option-texts">
+              <span class="option-name">چپ به راست (LTR)</span>
+              <span class="option-hint">پیش‌فرض (انگلیسی و کد)</span>
+            </div>
+          </div>
+        </label>
+
+        <label class="direction-option" id="labelRtl">
+          <input type="radio" name="direction" value="rtl" id="dirRtl">
+          <div class="option-content">
+            <span class="option-icon">➡️</span>
+            <div class="option-texts">
+              <span class="option-name">راست به چپ (RTL)</span>
+              <span class="option-hint">مناسب متن‌های فارسی</span>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Protection Notice -->
+    <div class="protection-notice">
+      <svg class="notice-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      <!-- <span>بلوک‌های کد <code>.md-code-block</code> و <b>منوی سایدبار</b> کاملاً ایزوله بوده و دست‌نخورده در جای خود باقی می‌مانند.</span> -->
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Display Direction Switcher (LTR / RTL)",
+  "version": "2.0.0",
+  "description": "تغییر جهت نمایش صفحه به چپ به راست (یا راست به چپ) با محافظت کامل از بلوک‌های کد md-code-block",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_title": "تنظیم جهت نمایش صفحه"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "content/content.css"
+      ],
+      "js": [
+        "content/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

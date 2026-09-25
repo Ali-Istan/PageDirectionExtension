@@ -1,0 +1,123 @@
+/* Display Direction Switcher (LTR / RTL)
+ * Content Stylesheet
+ * 
+ * Guarantees:
+ * 1. Protected Code Blocks: <div class="md-code-block ..."> remains 100% LTR, isolated, and untouched.
+ * 2. Protected Sidebar / Menu Bar: DeepSeek Sider, asides, and navigation stay on the left side and untouched.
+ * 3. Chat & Content Direction: Applies LTR or RTL to messages and text outside protected elements.
+ */
+
+/* -------------------------------------------------------------------------
+ * 1. Protection for Code Blocks (.md-code-block):
+ * Preserves syntax highlighting, copy/download banner, pre/code tags, and LTR order.
+ * ------------------------------------------------------------------------- */
+.md-code-block,
+.md-code-block *,
+div.md-code-block,
+div.md-code-block-light,
+div.md-code-block-banner-wrap,
+div.md-code-block-banner,
+div.md-code-block * {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: isolate !important;
+}
+
+/* Ensure banner buttons and flex layouts inside code blocks retain natural order */
+.md-code-block .md-code-block-banner,
+.md-code-block-light .md-code-block-banner {
+  direction: ltr !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 2. Protection for Sidebar & Menu Bar (DeepSeek Sider, asides, nav):
+ * Keeps sidebar strictly on the left, left-aligned, and unaltered.
+ * ------------------------------------------------------------------------- */
+aside,
+nav,
+[role="navigation"],
+[class*="sider" i],
+[class*="sidebar" i],
+.dc04ec1d,
+.b8812f16,
+.a2f3d50e,
+.ds-sider__policies-footer,
+aside *,
+nav *,
+[role="navigation"] *,
+[class*="sider" i] *,
+[class*="sidebar" i] *,
+.dc04ec1d *,
+.b8812f16 *,
+.a2f3d50e *,
+.ds-sider__policies-footer * {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: isolate !important;
+}
+
+/* Ensure outer flex containers do not flip the sidebar to the right side */
+html[data-pds-enabled="true"] #root,
+html[data-pds-enabled="true"] #root > div,
+html[data-pds-enabled="true"] body > div {
+  direction: ltr !important;
+}
+
+/* DeepSeek specific sidebar position lock */
+html[data-pds-enabled="true"] .dc04ec1d {
+  left: 0 !important;
+  right: auto !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 3. LTR Mode (چپ به راست) - Default Mode
+ * Applied when extension is enabled and direction is set to 'ltr'
+ * ------------------------------------------------------------------------- */
+html[data-pds-enabled="true"][data-pds-dir="ltr"] {
+  direction: ltr !important;
+}
+
+html[data-pds-enabled="true"][data-pds-dir="ltr"] body {
+  direction: ltr !important;
+}
+
+/* Apply LTR to text containers and chat messages, excluding code blocks and sidebars */
+html[data-pds-enabled="true"][data-pds-dir="ltr"] .ds-markdown:not(.md-code-block, .md-code-block *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] p:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] h1:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] h2:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] h3:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] h4:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] h5:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] h6:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] li:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] blockquote:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] article:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] section:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] [dir="rtl"]:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="ltr"] [dir="auto"]:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *) {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 4. RTL Mode (راست به چپ) - For Persian / Arabic chat text
+ * Applied when extension is enabled and user switches direction to 'rtl'
+ * Code block AND sidebar remain 100% protected and LTR!
+ * ------------------------------------------------------------------------- */
+html[data-pds-enabled="true"][data-pds-dir="rtl"] .ds-markdown:not(.md-code-block, .md-code-block *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] p:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] h1:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] h2:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] h3:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] h4:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] h5:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] h6:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] li:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] blockquote:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] article:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] section:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] [dir="ltr"]:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *) {
+  direction: rtl !important;
+  text-align: right !important;
+}
