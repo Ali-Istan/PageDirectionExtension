@@ -68,13 +68,46 @@
       </div>
     </div>
 
+    <!-- Allowlist -->
+    <div class="card allowlist-card" id="allowlistCard">
+      <div class="allowlist-header">
+        <div class="toggle-info">
+          <span class="toggle-title">فقط در سایت‌های مجاز</span>
+          <span class="toggle-desc" id="allowlistDesc">فقط سایت‌های لیست تغییر می‌کنند</span>
+        </div>
+        <label class="switch" for="allowlistToggle">
+          <input type="checkbox" id="allowlistToggle" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="current-site">
+        <span class="dot dot-gray" id="currentSiteDot"></span>
+        <span id="currentSiteText">در حال بررسی…</span>
+      </div>
+
+      <div class="add-site-row">
+        <input type="text" id="siteInput" class="site-input" placeholder="مثال: chat.deepseek.com" dir="ltr" spellcheck="false" autocomplete="off" />
+        <button type="button" id="addSiteBtn" class="btn-primary">افزودن</button>
+      </div>
+      <button type="button" id="addCurrentSiteBtn" class="btn-secondary">+ افزودن سایت فعلی به لیست</button>
+
+      <ul id="siteList" class="site-list"></ul>
+      <div id="siteEmpty" class="site-empty">هنوز سایتی اضافه نشده است</div>
+      <div class="hint">
+        آدرس پایه را وارد کنید (مثلاً <span dir="ltr">openai.com</span> یا <span dir="ltr">chat.deepseek.com</span>).
+        زیردامنه‌ها (مثل <span dir="ltr">chat.openai.com</span>) به‌صورت خودکار شامل می‌شوند.
+        اگر لیست خالی باشد، اکستنشن در هیچ سایتی کاری انجام نمی‌دهد.
+      </div>
+    </div>
+
     <!-- Protection Notice -->
     <div class="protection-notice">
       <svg class="notice-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
-      <!-- <span>بلوک‌های کد <code>.md-code-block</code> و <b>منوی سایدبار</b> کاملاً ایزوله بوده و دست‌نخورده در جای خود باقی می‌مانند.</span> -->
+      <span>در سایت‌های مجاز، بلوک‌های کد و منوی سایدبار دست‌نخورده باقی می‌مانند.</span>
     </div>
   </div>
 

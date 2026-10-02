@@ -1,31 +1,50 @@
 /* Display Direction Switcher (LTR / RTL)
  * Content Stylesheet
- * 
- * Guarantees:
- * 1. Protected Code Blocks: <div class="md-code-block ..."> remains 100% LTR, isolated, and untouched.
- * 2. Protected Sidebar / Menu Bar: DeepSeek Sider, asides, and navigation stay on the left side and untouched.
- * 3. Chat & Content Direction: Applies LTR or RTL to messages and text outside protected elements.
+ *
+ * ⚠️ EVERY rule in this file is gated behind html[data-pds-enabled="true"].
+ *
+ * The attribute is only set by content.js when:
+ *   1. The master switch is ON, and
+ *   2. The current page's host is inside the user's allowlist
+ *      (or the allowlist filter is turned OFF).
+ *
+ * On any other page — or when the extension is disabled — the attribute
+ * is removed, so this stylesheet has ZERO effect and the page stays
+ * exactly as the site developer intended.
+ *
+ * When active:
+ * 1. Protected Code Blocks: <div class="md-code-block ..."> remains 100% LTR.
+ * 2. Protected Sidebar / Menu Bar: DeepSeek Sider, asides, navigation stay untouched.
+ * 3. Chat & Content Direction: LTR or RTL applied to text outside protected elements.
  */
+
+/* -------------------------------------------------------------------------
+ * 0. Bundled Vazirmatn font (variable weight 100-900)
+ * The @font-face itself is injected from content.js with an absolute
+ * chrome-extension:// URL (chrome.runtime.getURL), because relative URLs
+ * inside an extension stylesheet resolve against the page, not the extension.
+ * The font-family rules below simply reference 'Vazirmatn PDS'.
+ * ------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------
  * 1. Protection for Code Blocks (.md-code-block):
  * Preserves syntax highlighting, copy/download banner, pre/code tags, and LTR order.
  * ------------------------------------------------------------------------- */
-.md-code-block,
-.md-code-block *,
-div.md-code-block,
-div.md-code-block-light,
-div.md-code-block-banner-wrap,
-div.md-code-block-banner,
-div.md-code-block * {
+html[data-pds-enabled="true"] .md-code-block,
+html[data-pds-enabled="true"] .md-code-block *,
+html[data-pds-enabled="true"] div.md-code-block,
+html[data-pds-enabled="true"] div.md-code-block-light,
+html[data-pds-enabled="true"] div.md-code-block-banner-wrap,
+html[data-pds-enabled="true"] div.md-code-block-banner,
+html[data-pds-enabled="true"] div.md-code-block * {
   direction: ltr !important;
   text-align: left !important;
   unicode-bidi: isolate !important;
 }
 
 /* Ensure banner buttons and flex layouts inside code blocks retain natural order */
-.md-code-block .md-code-block-banner,
-.md-code-block-light .md-code-block-banner {
+html[data-pds-enabled="true"] .md-code-block .md-code-block-banner,
+html[data-pds-enabled="true"] .md-code-block-light .md-code-block-banner {
   direction: ltr !important;
 }
 
@@ -33,24 +52,24 @@ div.md-code-block * {
  * 2. Protection for Sidebar & Menu Bar (DeepSeek Sider, asides, nav):
  * Keeps sidebar strictly on the left, left-aligned, and unaltered.
  * ------------------------------------------------------------------------- */
-aside,
-nav,
-[role="navigation"],
-[class*="sider" i],
-[class*="sidebar" i],
-.dc04ec1d,
-.b8812f16,
-.a2f3d50e,
-.ds-sider__policies-footer,
-aside *,
-nav *,
-[role="navigation"] *,
-[class*="sider" i] *,
-[class*="sidebar" i] *,
-.dc04ec1d *,
-.b8812f16 *,
-.a2f3d50e *,
-.ds-sider__policies-footer * {
+html[data-pds-enabled="true"] aside,
+html[data-pds-enabled="true"] nav,
+html[data-pds-enabled="true"] [role="navigation"],
+html[data-pds-enabled="true"] [class*="sider" i],
+html[data-pds-enabled="true"] [class*="sidebar" i],
+html[data-pds-enabled="true"] .dc04ec1d,
+html[data-pds-enabled="true"] .b8812f16,
+html[data-pds-enabled="true"] .a2f3d50e,
+html[data-pds-enabled="true"] .ds-sider__policies-footer,
+html[data-pds-enabled="true"] aside *,
+html[data-pds-enabled="true"] nav *,
+html[data-pds-enabled="true"] [role="navigation"] *,
+html[data-pds-enabled="true"] [class*="sider" i] *,
+html[data-pds-enabled="true"] [class*="sidebar" i] *,
+html[data-pds-enabled="true"] .dc04ec1d *,
+html[data-pds-enabled="true"] .b8812f16 *,
+html[data-pds-enabled="true"] .a2f3d50e *,
+html[data-pds-enabled="true"] .ds-sider__policies-footer * {
   direction: ltr !important;
   text-align: left !important;
   unicode-bidi: isolate !important;
@@ -75,10 +94,12 @@ html[data-pds-enabled="true"] .dc04ec1d {
  * ------------------------------------------------------------------------- */
 html[data-pds-enabled="true"][data-pds-dir="ltr"] {
   direction: ltr !important;
+  unicode-bidi: isolate !important;
 }
 
 html[data-pds-enabled="true"][data-pds-dir="ltr"] body {
   direction: ltr !important;
+  unicode-bidi: isolate !important;
 }
 
 /* Apply LTR to text containers and chat messages, excluding code blocks and sidebars */
@@ -98,6 +119,7 @@ html[data-pds-enabled="true"][data-pds-dir="ltr"] [dir="rtl"]:not(.md-code-block
 html[data-pds-enabled="true"][data-pds-dir="ltr"] [dir="auto"]:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *) {
   direction: ltr !important;
   text-align: left !important;
+  unicode-bidi: isolate !important;
 }
 
 /* -------------------------------------------------------------------------
@@ -117,7 +139,71 @@ html[data-pds-enabled="true"][data-pds-dir="rtl"] li:not(.md-code-block, .md-cod
 html[data-pds-enabled="true"][data-pds-dir="rtl"] blockquote:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
 html[data-pds-enabled="true"][data-pds-dir="rtl"] article:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
 html[data-pds-enabled="true"][data-pds-dir="rtl"] section:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] [dir="auto"]:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] [dir="rtl"]:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *),
 html[data-pds-enabled="true"][data-pds-dir="rtl"] [dir="ltr"]:not(.md-code-block, .md-code-block *, aside *, nav *, [role="navigation"] *, [class*="sider" i] *, [class*="sidebar" i] *, .dc04ec1d *, .b8812f16 *) {
   direction: rtl !important;
   text-align: right !important;
+  unicode-bidi: isolate !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 5. RTL Mode: Typing / Input Fields (چت و فرم‌ها)
+ * When RTL is active, the whole input becomes strictly right-to-left:
+ * every line is aligned to the right and ordered RTL, even when a line
+ * starts with an English word (e.g. "api تست میکنیم"). English words are
+ * still rendered correctly as embedded LTR runs.
+ * Code editors (Monaco, CodeMirror, Ace), <pre> and code blocks
+ * stay 100% LTR.
+ * ------------------------------------------------------------------------- */
+html[data-pds-enabled="true"][data-pds-dir="rtl"] textarea:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] input[type="text"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] input[type="search"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] input:not([type]):not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] [contenteditable="true"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] [contenteditable="plaintext-only"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] [contenteditable=""]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"][data-pds-dir="rtl"] [role="textbox"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *) {
+  direction: rtl !important;
+  text-align: right !important;
+  unicode-bidi: normal !important;
+}
+
+/* Placeholder follows the RTL direction as well */
+html[data-pds-enabled="true"][data-pds-dir="rtl"] textarea::placeholder,
+html[data-pds-enabled="true"][data-pds-dir="rtl"] input::placeholder {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 6. RTL Mode: forced elements marked by content.js
+ * Some sites (like DeepSeek) set `dir="auto"` or `unicode-bidi: plaintext`
+ * on message bubbles. content.js detects those elements and marks them with
+ * data-pds-rtl="true"; this rule then forces a real RTL base direction so
+ * that a line starting with an English word is still laid out right-to-left.
+ * ------------------------------------------------------------------------- */
+html[data-pds-enabled="true"][data-pds-dir="rtl"] [data-pds-rtl="true"] {
+  direction: rtl !important;
+  text-align: right !important;
+  unicode-bidi: isolate !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 7. Persian font (Vazirmatn)
+ * content.js marks every element that renders Persian/Arabic text with
+ * data-pds-font="vazirmatn". Code blocks, editors and sidebars are never
+ * marked, so their original fonts are kept.
+ * ------------------------------------------------------------------------- */
+html[data-pds-enabled="true"] [data-pds-font="vazirmatn"] {
+  font-family: 'Vazirmatn PDS', Vazirmatn, Vazir, Tahoma, sans-serif !important;
+}
+
+/* Chat input fields also use Vazirmatn (code editors are excluded) */
+html[data-pds-enabled="true"] textarea:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"] input[type="text"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"] input[type="search"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"] [contenteditable="true"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *),
+html[data-pds-enabled="true"] [contenteditable="plaintext-only"]:not(.monaco-editor *, .CodeMirror *, .cm-editor *, .ace_editor *, .md-code-block *, pre *, code *) {
+  font-family: 'Vazirmatn PDS', Vazirmatn, Vazir, Tahoma, sans-serif !important;
 }
